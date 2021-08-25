@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/Angular12JwtAuth'),
+      dir: require('path').join(__dirname, './coverage/SoChopp'),
       subdir: '.',
       reporters: [
         { type: 'html' },
