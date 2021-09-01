@@ -1,5 +1,5 @@
 {
-  "name": "so-chopp",
+  "name": "starter",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -11,13 +11,20 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.2",
+    "@angular/cdk": "^12.2.3",
     "@angular/common": "~12.0.2",
     "@angular/compiler": "~12.0.2",
     "@angular/core": "~12.0.2",
+    "@angular/flex-layout": "^12.0.0-beta.34",
     "@angular/forms": "~12.0.2",
+    "@angular/material": "^12.2.3",
     "@angular/platform-browser": "~12.0.2",
     "@angular/platform-browser-dynamic": "~12.0.2",
     "@angular/router": "~12.0.2",
+    "@angular/service-worker": "~12.0.2",
+    "file-saver": "^2.0.5",
+    "material-design-icons": "^3.0.1",
+    "ngx-mask": "^12.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"

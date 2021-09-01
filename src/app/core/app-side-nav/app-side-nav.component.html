@@ -1,0 +1,119 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport
+                 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+                 [mode]="'over'"
+                 [opened]="false">
+        <mat-toolbar>Menu</mat-toolbar>
+
+
+        <mat-nav-list>
+
+            <mat-list-item routerLink="" (click)="drawer.toggle()">
+                <a mat-line>Home</a>
+            </mat-list-item>
+
+            <!--Botões do menu-->
+            <mat-list-item [matMenuTriggerFor]="cadastro">
+                <a mat-line>Cadastros</a>
+                <mat-icon>arrow_right</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item [matMenuTriggerFor]="outro">
+                <a mat-line>Outro</a>
+                <mat-icon>arrow_right</mat-icon>
+            </mat-list-item>
+
+            <mat-menu #cadastro="matMenu">
+                <button mat-menu-item [matMenuTriggerFor]="exemplo">Tela 1</button>
+                <button mat-menu-item [matMenuTriggerFor]="outro">Outro</button>
+            </mat-menu>
+
+
+            <!--Submenu-->
+            <mat-menu #exemplo="matMenu">
+                <button mat-menu-item routerLink="exemplo" (click)="drawer.toggle()">
+                    <a mat-line>Exemplo</a>
+                </button>
+            </mat-menu>
+
+            <mat-menu #outro="matMenu">
+                <button mat-menu-item routerLink="outro" (click)="drawer.toggle()">
+                    <a mat-line>Item 1</a>
+                </button>
+                <button mat-menu-item routerLink="outro" (click)="drawer.toggle()">
+                    <a mat-line>Item 2</a>
+                </button>
+            </mat-menu>
+
+
+            <mat-menu #outro="matMenu">
+
+                <button mat-menu-item routerLink="usuario" (click)="drawer.toggle()">
+                    <a mat-line>Item 1</a>
+                </button>
+
+                <button mat-menu-item routerLink="usuario" (click)="drawer.toggle()">
+                    <a mat-line>Item 2</a>
+                </button>
+
+                <button mat-menu-item routerLink="usuario" (click)="drawer.toggle()">
+                    <a mat-line>Item 2</a>
+                </button>
+            </mat-menu>
+
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button
+                *ngIf="isLoggedIn$ | async"
+                type="button"
+                aria-label="Toggle sidenav"
+                mat-icon-button
+                (click)="drawer.toggle()">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>NextAge Angular Starter</span>
+            <span class="fill-space"></span>
+
+            <div *ngIf="isLoggedIn$ | async" [hidden]="!user || user?.id == null">
+                <mat-list-item [matMenuTriggerFor]="menuUsuarioLogado">
+                    <a mat-line id="usuarioLogado">{{user?.name}}
+                        <div mat-card-avatar class="avatar-image">
+                            <mat-icon aria-label="Side nav toggle icon">person</mat-icon>
+                        </div>
+                    </a>
+                </mat-list-item>
+                <mat-menu #menuUsuarioLogado="">
+                    <button mat-menu-item routerLink="usuario-conta">
+                        <a mat-line>Minha Conta</a>
+                    </button>
+                    <button mat-menu-item (click)="onLogout()" *ngIf="isLoggedIn$ | async">
+                        <a mat-line>Sair</a>
+                    </button>
+                </mat-menu>
+            </div>
+
+            <!--<span>
+                <button aria-label="Perfil" mat-icon-button class="example-icon">
+                    <mat-icon style="color: white;">account_circle</mat-icon>
+                </button>
+                <button aria-label="Perfil" mat-button>
+                    <mat-icon
+                        style="background:#7e4273;border-radius:19px;color:white;margin-right:24px;margin-bottom:14px;font-size: xx-large;">account_circle</mat-icon> <label
+                    style="font-size: 18px;color: white;">{{usuario?.nome}}</label>
+                </button>
+            </span>
+            <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
+            <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>-->
+
+        </mat-toolbar>
+        <!-- Add Content Here -->
+
+        <div
+            class="titulo-tela">{{tokenStorageService.actualRoute ? tokenStorageService.actualRoute.data.nome : ''}}</div>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+
+</mat-sidenav-container>

@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<!--<div class="col-md-12">
   <div class="card card-container">
     <img
       id="profile-img"
@@ -15,10 +15,11 @@
       <div class="form-group">
         <label for="username">Username</label>
         <input
+          id="username"
           type="text"
           class="form-control"
           name="username"
-          [(ngModel)]="form.username"
+          [(ngModel)]="data.username"
           required
           #username="ngModel"
         />
@@ -33,10 +34,11 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input
+          id="password"
           type="password"
           class="form-control"
           name="password"
-          [(ngModel)]="form.password"
+          [(ngModel)]="data.password"
           required
           minlength="6"
           #password="ngModel"
@@ -72,4 +74,81 @@
       Logged in as {{ roles }}.
     </div>
   </div>
+</div>-->
+
+
+<div class="loading-indicator" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
 </div>
+
+<div id="telaLogin">
+    <div class="centerAlign">
+        <div class="login-box example-card">
+            <div class="login-title-box">
+            </div>
+            <div>
+                <form autocomplete="off" class="example-form" [formGroup]="form" (ngSubmit)="login()">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Login</mat-label>
+                        <input matInput type="text" id="login" formControlName="login" required>
+                        <mat-error class="error-message"
+                                   *ngIf="true">
+                            O login é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Senha</mat-label>
+                        <input matInput type="password" id="password" formControlName="password"
+                               required>
+                        <mat-error class="error-message"
+                                   *ngIf="true">
+                            A senha é obrigatória
+                        </mat-error>
+                    </mat-form-field>
+
+
+                    <ng-container *ngIf="formErrors">
+                        <mat-error *ngFor="let error of formErrors" class="error-message">
+                            {{ error }}
+                        </mat-error>
+                    </ng-container>
+
+                    <button color="primary" mat-raised-button type="submit"
+                            class="full-width" style="margin:40px 0px 30px 0px;letter-spacing: 0.57px;">ENTRAR
+                        <i class="material-icons img-login-button">save_alt</i>
+                    </button>
+
+                    <button type="button" mat-button (click)="stateView = STATE_REC_SENHA" class="btn-recuperar-senha">
+                        Recuperar senha
+                    </button>
+
+                </form>
+            </div>
+            <div [hidden]="stateView != STATE_REC_SENHA">
+                <form autocomplete="off" class="example-form" [formGroup]="formRecovery!" (ngSubmit)="recovery()">
+                    <mat-form-field  class="full-width" appearance="outline" floatLabel="always">
+                        <input matInput type="text" placeholder="E-mail" id="loginRecuperarSenha" formControlName="email"
+                               required>
+                        <mat-error class="error-message"
+                                   *ngIf="true">
+                            O E-mail é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+
+
+                    <button color="primary" mat-raised-button type="submit"
+                            class="full-width" style="margin:40px 0px;letter-spacing: 0.57px;">Recuperar Senha
+                        <i class="material-icons">lock</i>
+                    </button>
+
+                    <button type="button" mat-button (click)="stateView = STATE_LOGIN" class="state-button">
+                        Login
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

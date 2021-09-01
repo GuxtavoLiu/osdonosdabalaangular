@@ -1,0 +1,70 @@
+#telaLogin {
+    display: table;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    .centerAlign {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .login-box {
+        max-width: 379px;
+        width: 90%;
+        min-width: 245px;
+        margin: auto;
+        background-color: #FFFFFF;
+        box-shadow: 0 2px 17px 0 rgba(0, 0, 0, 0.3);
+        height: 435px;
+        text-align: center;
+    }
+
+    .login-title-box {
+        width: 100%;
+        height: 50px;
+    }
+
+    form {
+        margin: 40px;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+.recuperar-senha {
+    color: #838383;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+}
+
+.img-login-button {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+
+.state-button {
+    box-shadow: inherit;
+    height: 42px;
+    margin-left: -5px !important;
+    padding: 0 !important;
+    min-width: 50px !important;
+    width: 100%;
+    color: #838383;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+}
+
+.btn-recuperar-senha > span {
+    color: #000;
+}

@@ -1,31 +1,37 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-const AUTH_API = 'http://localhost:8080/api/auth/';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Info} from "../model/info";
+import {User} from "../model/user";
+import {HandleError, HttpErrorHandler} from "../_helpers/http-error-handler.service";
+import {RestApiService} from "../_helpers/rest-api/rest-api.service";
+import {catchError} from "rxjs/operators";
+//http://localhost:8080/api/auth/
+//http://localhost:8080/api/auth/signin/
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+    private API_URL = "auth/";
+    private readonly handleError: HandleError;
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + 'signin', {
-      username,
-      password
-    }, httpOptions);
-  }
+    constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler, private api: RestApiService) {
+        this.handleError = httpErrorHandler.createHandleError('AuthService');
+    }
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', {
-      username,
-      email,
-      password
-    }, httpOptions);
-  }
+    login(obj: User): Observable<Info> {
+        return this.api.post(this.API_URL + 'signin', obj)
+            .pipe(catchError(this.handleError('signin', obj)));
+    }
+
+    register(obj: User): Observable<Info> {
+        return this.api.post(this.API_URL + 'signup', obj)
+            .pipe(catchError(this.handleError('signup', obj)));
+    }
+
+    recovery(obj: User): Observable<any> {
+        return this.api.post(this.API_URL + 'recovery', obj)
+            .pipe(catchError(this.handleError('recovery', obj)));
+
+    }
 }

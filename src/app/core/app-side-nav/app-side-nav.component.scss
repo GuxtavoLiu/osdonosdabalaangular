@@ -1,0 +1,39 @@
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 200px;
+}
+
+.sidenav .mat-toolbar {
+    background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.example-icon {
+    padding: 0 14px;
+}
+
+.titulo-tela{
+    font-size: 20px;
+    margin: 10px;
+}
+
+#usuarioLogado{
+    display: flex;
+}
+
+.avatar-image {
+    height: 30px !important;
+    width: 30px !important;
+    border-radius: 15px;
+    border: solid 2px white;
+    padding: 1px;
+    margin-left: 5px;
+}
