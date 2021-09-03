@@ -43,11 +43,11 @@ export class ExampleService {
      * @retrun retorna um objeto Info com os dados
      */
     dashboard(filter?: ExampleFilter): Observable<Info> {
-        let url = `${this.API_URL}/dashboard?page=${filter?.pagination.page}&size=${filter?.pagination.size}`;
-        if (filter?.pagination.order) {
+        let url = `${this.API_URL}/dashboard?page=${filter?.pagination?.page}&size=${filter?.pagination?.size}`;
+        if (filter?.pagination?.order) {
             url += `&order=${filter?.pagination.order}`;
         }
-        if (filter?.pagination.asc) {
+        if (filter?.pagination?.asc) {
             url += `&asc=${filter?.pagination.asc}`;
         }
         return this.api.post(url, filter).pipe(map((res: any) => {

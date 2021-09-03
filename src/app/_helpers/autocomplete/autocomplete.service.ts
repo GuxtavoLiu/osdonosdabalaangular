@@ -25,8 +25,8 @@ export class AutoCompleteService {
     }
 
 
-    listExample(filtro?: AutocompleteFilter): Observable<any> {
-        return this.api.post(this.API_URL + 'list-example/', filtro).pipe(map((info: Info) => {
+    listExample(filter: AutocompleteFilter): Observable<any> {
+        return this.api.post(this.API_URL + 'examples/', filter).pipe(map((info: Info) => {
                 let baseClass = new BaseClass();
                 let lista: AutocompleteObjectExample[] = [];
                 let error = !info.success;

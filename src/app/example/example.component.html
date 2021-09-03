@@ -35,7 +35,7 @@
                         </button>
                     </div>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="novo()">
+                        <button mat-menu-item (click)="newRegistry()">
                             <mat-icon>add</mat-icon>
                             <span>Novo</span>
                         </button>
@@ -56,7 +56,7 @@
                 <mat-table #table [dataSource]="listExample">
                     <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: columns;let element"
-                             (click)="editar(element)"></mat-row>
+                             (click)="edit(element)"></mat-row>
 
                     <ng-container matColumnDef="id">
                         <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
@@ -74,9 +74,9 @@
                         <mat-cell *matCellDef="let element"> {{element.cnpj }}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="autocompleteObjectExample">
+                    <ng-container matColumnDef="autocomplete">
                         <mat-header-cell *matHeaderCellDef>Autocomplete</mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.autocompleteObjectExample?.description}}</mat-cell>
+                        <mat-cell *matCellDef="let element"> {{element.autocomplete?.description}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="email">
                         <mat-header-cell *matHeaderCellDef>E-mail</mat-header-cell>
@@ -120,7 +120,7 @@
             </mat-card-content>
         </mat-card>
 
-        <form autocomplete="off" [formGroup]="form" #documentEditForm="ngForm" id="ngForm" (submit)="salvar()">
+        <form autocomplete="off" [formGroup]="form" #documentEditForm="ngForm" id="ngForm" (submit)="save()">
             <mat-card>
                 <mat-card-content class="form-container row">
 
@@ -128,7 +128,7 @@
                         <mat-label>Text Input</mat-label>
                         <input matInput #text maxlength="200"
                                formControlName="text"
-                               name="text" required [value]="selected.text">
+                               name="text" required>
                         <mat-error>{{getErrorMessage('text')}}</mat-error>
                     </mat-form-field>
 
@@ -139,17 +139,17 @@
                                mask="00.000.000/0000-00"
                                [dropSpecialCharacters]="false"
                                formControlName="cnpj" #cnpj
-                               name="cnpj" required [value]="selected.cnpj">
+                               name="cnpj" required>
                         <mat-error>{{getErrorMessage('cnpj')}}</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" floatLabel="always" class="col-md-3">
                         <mat-label>Data Input</mat-label>
                         <input matInput [matDatepicker]="picker"
-                               formControlName="data">
+                               formControlName="date">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                        <mat-error>{{getErrorMessage('data')}}</mat-error>
+                        <mat-error>{{getErrorMessage('date')}}</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" floatLabel="always" class="col-md-3">
@@ -170,21 +170,21 @@
                         <mat-label>E-mail Input</mat-label>
                         <input matInput #input maxlength="200"
                                formControlName="email" #email
-                               name="email" [value]="selected.email">
+                               name="email">
                         <mat-error>{{getErrorMessage('email')}}</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" floatLabel="always" class="col-md-6">
                         <mat-label>Autocomplete Input</mat-label>
                         <input aria-label="Autocomplete" matInput [autocompleteType]="'object'"
-                               formControlName="autocompleteObjectExample" #inputAutocomplete
+                               formControlName="autocomplete" #inputAutocomplete
                                [matAutocomplete]="autoCompleteManut">
                         <mat-autocomplete #autoCompleteManut [displayWith]="formataAutoComplete">
                             <mat-option *ngFor="let item of observableAutocomplete | async" [value]="item">
                                 <div>{{item.description}}</div>
                             </mat-option>
                         </mat-autocomplete>
-                        <mat-error>{{getErrorMessage('autocompleteObjectExample')}}</mat-error>
+                        <mat-error>{{getErrorMessage('autocomplete')}}</mat-error>
                     </mat-form-field>
 
                     <div class="form-container col-md-12">
@@ -225,7 +225,7 @@
                             <button type="submit" mat-raised-button color="primary">
                                 Salvar
                             </button>
-                            <button type="button" mat-raised-button color="secondary" (click)="novo()"
+                            <button type="button" mat-raised-button color="secondary" (click)="newRegistry()"
                                     *ngIf="selected.id">
                                 Novo
                             </button>

@@ -43,18 +43,18 @@ export class ExampleComponent extends BaseClass implements OnInit {
 
     loading = false;
     limit = false;
-    comboList = [];
+    comboList = ['Teste 1', 'Teste 2', 'Teste 3'];
 
     // LISTAR - variaveis
     filter: ExampleFilter = {
         pagination: new Pagination()
     };
     listExample: Example[] = [];
-    columns = ['id', 'text', 'cnpj', 'email', 'autocompleteObjectExample'];
+    columns = ['id', 'text', 'cnpj', 'email', 'autocomplete'];
 
     // EDITAR - variaveis
     selected = new Example();
-    form!: FormGroup;
+    form: FormGroup;
 
     observableAutocomplete: Observable<AutocompleteObjectExample[]> = new Observable<AutocompleteObjectExample[]>();
 
@@ -79,6 +79,16 @@ export class ExampleComponent extends BaseClass implements OnInit {
                 private snackBar: MatSnackBar,
                 private dialog: MatDialog) {
         super();
+
+        this.form = this.formBuilder.group({
+            text: ['', Validators.required],
+            cnpj: ['', [Validators.required, ValidatorsCL.validateCNPJ]],
+            combobox: ['', Validators.required],
+            date: ['', [Validators.required]],
+            radiobutton: ['', Validators.required],
+            autocomplete: [null, []],
+            email: ['', ValidatorsCL.validateEmail],
+        });
     }
 
     /**
@@ -86,16 +96,6 @@ export class ExampleComponent extends BaseClass implements OnInit {
      */
     ngOnInit() {
         this.user = this.tokenStorageService.getUser();
-
-        this.form = this.formBuilder.group({
-            text: ['', Validators.required],
-            cnpj: ['', [Validators.required, ValidatorsCL.validateCNPJ]],
-            combobox: ['', Validators.required],
-            data: ['', [Validators.required]],
-            radiobutton: ['', Validators.required],
-            autocompleteObjectExample: [null, []],
-            email: ['', ValidatorsCL.validateEmail],
-        });
         this.list();
         this.loadCombo();
 
@@ -106,7 +106,7 @@ export class ExampleComponent extends BaseClass implements OnInit {
      * funcao generica pra carregar todos combos necessários para os filtros a na manutenção
      */
     loadCombo() {
-        this.loading = true;
+        /*this.loading = true;
 
         let comboFilter = new ComboFilter();
         this.comboService.listExample(comboFilter).subscribe((info: Info) => {
@@ -119,7 +119,7 @@ export class ExampleComponent extends BaseClass implements OnInit {
         }, (error: any) => {
             console.log(error);
             this.showError(this.snackBar, Constants.listComboError);
-        });
+        });*/
     }
 
 
@@ -156,8 +156,8 @@ export class ExampleComponent extends BaseClass implements OnInit {
             if (info.success) {
                 let data = info.object;
                 this.filter.pagination = {
-                    asc: this.filter.pagination.asc,
-                    order: this.filter.pagination.order,
+                    asc: this.filter.pagination?.asc,
+                    order: this.filter.pagination?.order,
                     size: data.size,
                     totalElement: data.totalElements,
                     page: data.pageable.pageNumber
@@ -186,7 +186,7 @@ export class ExampleComponent extends BaseClass implements OnInit {
      * Função abre o modal de confirmação de excluir,
      * se clicar em SIM, então é feito exclusão lógica do registro no backend
      */
-    excluir() {
+    remove() {
         const dialogRef = this.dialog.open(DialogDeleteComponent, {
             width: '300px', disableClose: false,
             data: {title: 'Atenção!', message: Constants.deleteMessage('Dados')}
@@ -199,7 +199,7 @@ export class ExampleComponent extends BaseClass implements OnInit {
                             this.showMessageInfo(this.snackBar, info);
                             this.loading = false;
                             if (info.success) {
-                                this.novo();
+                                this.newRegistry();
                                 this.list();
                                 this.voltarLista();
                             }
@@ -218,8 +218,8 @@ export class ExampleComponent extends BaseClass implements OnInit {
      *
      * @param obj
      */
-    editar(obj: Example) {
-        this.form?.reset();
+    edit(obj: Example) {
+        this.form.reset();
         this.stateView = this.STATE_MANUT;
         this.selected = new Example();
         this.loading = true;
@@ -228,14 +228,14 @@ export class ExampleComponent extends BaseClass implements OnInit {
                 this.loading = false;
                 if (info.success) {
                     this.selected = info.object as Example;
-                    this.form?.setValue({
+                    this.form.patchValue({
                         'text': this.selected.text,
                         'cnpj': this.selected.cnpj,
                         'combobox': this.selected.combobox,
-                        'data': this.selected.data,
+                        'date': this.selected.date,
                         'radiobutton': this.selected.radiobutton ? '1' : '0',
                         'email': this.selected.email,
-                        'autocompleteObjectExample': this.selected.autocompleteObjectExample,
+                        'autocomplete': this.selected.autocomplete,
                     });
                 }
             },
@@ -267,14 +267,14 @@ export class ExampleComponent extends BaseClass implements OnInit {
      * Válida se os campos do formulário estão preenchidos corretamente,
      * em seguida salva o registro no backend
      */
-    salvar(): void {
-        if (this.form?.valid) {
+    save(): void {
+        if (this.form.valid) {
             this.loading = true;
             this.selected.text = this.form.value.text;
             this.selected.cnpj = this.form.value.cnpj;
-            // this.objSelecionado.autocompleteObjectExample = this.form.value.autocompleteObjectExample;
+            this.selected.autocomplete = this.form.value.autocomplete;
             this.selected.combobox = this.form.value.combobox;
-            this.selected.data = this.form.value.data;
+            this.selected.date = this.form.value.date;
             this.selected.radiobutton = this.form.value.radiobutton == '1';
             this.selected.email = this.form.value.email;
 
@@ -298,19 +298,20 @@ export class ExampleComponent extends BaseClass implements OnInit {
     /**
      * Limpa o formulario de manutenção na tela
      */
-    novo() {
-        this.form?.reset();
+    newRegistry() {
+        this.form.reset();
+
         this.stateView = this.STATE_MANUT;
         this.selected = new Example();
-        this.form?.setValue({
+        /*this.form.patchValue({
             'text': '',
             'cnpj': '',
             'combobox': null,
-            'data': null,
+            'date': null,
             'radiobutton': '0',
             'email': '',
-            'autocompleteObjectExample': null
-        });
+            'autocomplete': null
+        });*/
     }
 
     /**

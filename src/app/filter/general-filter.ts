@@ -7,5 +7,5 @@
 import {Pagination} from "../model/pagination";
 
 export class GeneralFilter {
-    pagination: Pagination = new Pagination();
+    pagination?: Pagination;
 }

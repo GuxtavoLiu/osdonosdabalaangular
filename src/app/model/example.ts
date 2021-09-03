@@ -11,8 +11,8 @@ export class Example extends Auditable {
     id?: number;
     text?: string;
     cnpj?: string;
-    autocompleteObjectExample?: AutocompleteObjectExample;
-    data?: Date;
+    autocomplete?: AutocompleteObjectExample;
+    date?: Date;
     radiobutton?: boolean;
     email?: string;
     combobox?: string;
