@@ -1,13 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-import { BoardUserComponent } from './board-user/board-user.component';
-import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from "./_helpers/guards/auth.guard";
+import {RoleGuard} from "./_helpers/guards/role.guard";
 
 /*const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -25,12 +19,16 @@ const routes: Routes = [
     {path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule)},
     {path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule)},
     {path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
-    /*{
-        path: 'exemplo',
-        loadChildren: () => import('./exemplo/exemplo.module').then(m => m.ExemploModule),
+    {path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)},
+    {path: 'user', loadChildren: () => import('./board-user/board-user.module').then(m => m.BoardUserModule)},
+    {path: 'mod', loadChildren: () => import('./board-moderator/board-moderator.module').then(m => m.BoardModeratorModule)},
+    {path: 'admin', loadChildren: () => import('./board-admin/board-admin.module').then(m => m.BoardAdminModule)},
+    {
+        path: 'example',
+        loadChildren: () => import('./example/example.module').then(m => m.ExampleModule),
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: [], nome: 'Tela 1'}
-    },*/
+    },
 
 
     {path: '**', redirectTo: '/home', pathMatch: 'full'}
@@ -38,7 +36,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

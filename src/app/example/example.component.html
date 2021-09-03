@@ -1,0 +1,239 @@
+<div class="loading-indicator" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+<div class="container">
+    <!-- PAGINA LISTA -->
+    <div [hidden]="stateView != STATE_LIST">
+        <!--FILTRO-->
+        <mat-card class="header-page">
+            <mat-card-content>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" floatLabel="always">
+                            <mat-label>Id</mat-label>
+                            <input matInput maxlength="10" name="text"
+                                   #searchId autocomplete="off" only-number>
+                            <button mat-button matSuffix mat-icon-button aria-label="search">
+                                <mat-icon *ngIf="!searchId.value">search</mat-icon>
+                                <mat-icon *ngIf="searchId.value"
+                                          (click)="searchId.value = '';this.filter.id = undefined; this.list()">close
+                                </mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3"></div>
+                    <div class="group-button right col-md-3">
+                        <button type="button" mat-raised-button color="primary" (click)="limparFiltro()">
+                            Limpar Filtro
+                        </button>
+
+                        <button mat-icon-button aria-label="Ações" [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                    </div>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="novo()">
+                            <mat-icon>add</mat-icon>
+                            <span>Novo</span>
+                        </button>
+                        <button mat-menu-item (click)="list()">
+                            <mat-icon>refresh</mat-icon>
+                            <span>Atualizar</span>
+                        </button>
+                    </mat-menu>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!--LISTA-->
+        <mat-card>
+            <mat-card-content>
+
+                <mat-table #table [dataSource]="listExample">
+                    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: columns;let element"
+                             (click)="editar(element)"></mat-row>
+
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.id}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="text">
+                        <mat-header-cell *matHeaderCellDef>Text Input</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.text}}</mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="cnpj">
+                        <mat-header-cell *matHeaderCellDef>CNPJ Input</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.cnpj }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="autocompleteObjectExample">
+                        <mat-header-cell *matHeaderCellDef>Autocomplete</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.autocompleteObjectExample.descricao}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="email">
+                        <mat-header-cell *matHeaderCellDef>E-mail</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.email}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="operacoes">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <button mat-button color="primary">
+                                <mat-icon>keyboard_arrow_right</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+
+                </mat-table>
+                <div *ngIf="!listExample.length" class="text-center p-1">
+                    Nenhum registro encontrado!
+                </div>
+
+                <pagination [pagination]="filter.pagination!"  (listar)="listarPaginado()"></pagination>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!--PAGINA MANUTENÇÃO-->
+    <div [hidden]="stateView != STATE_MANUT">
+        <mat-card class="header-page">
+            <mat-card-content>
+                <div class="row">
+                    <div class="group-button col-md-1">
+                        <button mat-button (click)="voltarLista()" class="back-button">
+                            <i class="material-icons img-logout-button">arrow_back</i>
+                        </button>
+                    </div>
+                    <div class="group-button col-md-9">
+                        <h5 class="text">Id: {{selected.id}}</h5>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <form autocomplete="off" [formGroup]="form" #documentEditForm="ngForm" id="ngForm" (submit)="salvar()">
+            <mat-card>
+                <mat-card-content class="form-container row">
+
+                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-3">
+                        <mat-label>Text Input</mat-label>
+                        <input matInput #text maxlength="200"
+                               formControlName="text"
+                               name="text" required [value]="selected.text">
+                        <mat-error>{{getErrorMessage('text')}}</mat-error>
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-3">
+                        <mat-label>CNPJ</mat-label>
+                        <input matInput maxlength="18"
+                               mask="00.000.000/0000-00"
+                               [dropSpecialCharacters]="false"
+                               formControlName="cnpj" #cnpj
+                               name="cnpj" required [value]="selected.cnpj">
+                        <mat-error>{{getErrorMessage('cnpj')}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-3">
+                        <mat-label>Data Input</mat-label>
+                        <input matInput [matDatepicker]="picker"
+                               formControlName="data">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error>{{getErrorMessage('data')}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-3">
+                        <mat-label>Combobox Input</mat-label>
+                        <mat-select [compareWith]="comparar"
+                                    required
+                                    formControlName="combobox"
+                                    aria-label="Combobox">
+                            <mat-option *ngFor="let obj of comboList" [value]="obj">
+                                {{obj}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>{{getErrorMessage('combobox')}}</mat-error>
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-6">
+                        <mat-label>E-mail Input</mat-label>
+                        <input matInput #input maxlength="200"
+                               formControlName="email" #email
+                               name="email" [value]="selected.email">
+                        <mat-error>{{getErrorMessage('email')}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-6">
+                        <mat-label>Autocomplete Input</mat-label>
+                        <input aria-label="Autocomplete" matInput [autocompleteType]="'object'"
+                               formControlName="autocompleteObjectExample" #inputAutocomplete
+                               [matAutocomplete]="autoCompleteManut">
+                        <mat-autocomplete #autoCompleteManut [displayWith]="formataAutoComplete">
+                            <mat-option *ngFor="let item of observableAutocomplete | async" [value]="item">
+                                <div>{{item.description}}</div>
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error>{{getErrorMessage('autocompleteObjectExample')}}</mat-error>
+                    </mat-form-field>
+
+                    <div class="form-container col-md-12">
+                        <div class="row">
+                            <label class="col-md-2" id="informa-emulamentos-label">Radiobutton</label>
+                            <mat-radio-group class="col-md-10" formControlName="radiobutton"
+                                             aria-labelledby="registro-avaliacao-label"
+                                             aria-label="Radiobutton">
+                                <mat-radio-button value="1">Sim</mat-radio-button>
+                                <mat-radio-button value="0">Não</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+
+
+                    <div class="form-container col-md-12">
+                        <div class="row">
+                            <label class="col-md-12">Imagem Input</label>
+
+                            <input-file [objeto]="selected"
+                                       [accept]="'.jpg, .png, .jpeg|images/*;'"
+                                       [nomePropriedadeArquivoB64]="'imagemB64'">
+                            </input-file>
+                        </div>
+                    </div>
+
+
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="footer-page">
+                <mat-card-content>
+                    <div class="row">
+                        <div class="group-button col-md-12">
+                            <button type="button" mat-raised-button color="primary" (click)="voltarLista()">
+                                Voltar
+                            </button>
+                            <button type="submit" mat-raised-button color="primary">
+                                Salvar
+                            </button>
+                            <button type="button" mat-raised-button color="secondary" (click)="novo()"
+                                    *ngIf="selected.id">
+                                Novo
+                            </button>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </form>
+
+    </div>
+</div>

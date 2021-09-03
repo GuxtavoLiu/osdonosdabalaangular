@@ -119,4 +119,8 @@ export class LoginComponent extends BaseClass implements OnInit {
     reloadPage(): void {
         window.location.reload();
     }
+
+    changeState(state: string) {
+        this.stateView = state;
+    }
 }

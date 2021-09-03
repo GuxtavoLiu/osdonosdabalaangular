@@ -3,7 +3,8 @@ import { TokenStorageService } from './_services/token-storage.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+    template: '<app-side-nav></app-side-nav>',
+    // templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {

@@ -1,0 +1,31 @@
+<div class="file-container ">
+    <div>
+        <input type="file"
+               [disabled]="disabled"
+               [name]="idInput"
+               #onFileInput
+               (change)="onChangeFileInput($event)"
+               [accept]="accept" hidden>
+
+        <a mat-raised-button color="primary"
+           [disabled]="disabled"
+           (click)="selecionarArquivo()"
+           *ngIf="!existeArquivo()">
+            Anexar Arquivo
+        </a>
+        <a mat-raised-button color="secondary"
+           (click)="removerArquivo()"
+           [disabled]="disabled"
+           *ngIf="existeArquivo()">
+            Remover Arquivo
+        </a>
+        <a mat-raised-button color="primary" class="input-download"
+           (click)="download()"
+           *ngIf="exibirDownload && existeArquivo()">
+            Download
+        </a>
+    </div>
+    <div class="img-input-file col-md-12" *ngIf="existeArquivoTipo('imagem') && exibirImagem" >
+        <img [src]="objeto![nomePropriedadeArquivoB64!]"/>
+    </div>
+</div>

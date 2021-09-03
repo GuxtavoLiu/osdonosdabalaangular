@@ -12,6 +12,10 @@
                 <a mat-line>Home</a>
             </mat-list-item>
 
+            <mat-list-item routerLink="/example" (click)="drawer.toggle()">
+                <a mat-line>Example</a>
+            </mat-list-item>
+
             <!--Botões do menu-->
             <mat-list-item [matMenuTriggerFor]="cadastro">
                 <a mat-line>Cadastros</a>
@@ -31,7 +35,7 @@
 
             <!--Submenu-->
             <mat-menu #exemplo="matMenu">
-                <button mat-menu-item routerLink="exemplo" (click)="drawer.toggle()">
+                <button mat-menu-item routerLink="/example" (click)="drawer.toggle()">
                     <a mat-line>Exemplo</a>
                 </button>
             </mat-menu>

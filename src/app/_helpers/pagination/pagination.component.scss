@@ -1,0 +1,39 @@
+.nx-pagination {
+    //width: 100%;
+    text-align: center;
+    margin: 15px;
+    margin-top: 25px;
+
+    button {
+        border: none;
+        background-color: #f2f2f2;
+        cursor: pointer;
+        color: #707070;
+        min-width: 50px;
+        height: 30px;
+
+        &:not([disabled]):hover {
+            background-color: #e2e2e2;
+        }
+        &:disabled {
+            background-color: #f9f9f9;
+            cursor: inherit;
+            color: #c1c1c1;
+        }
+
+        i {
+            vertical-align: middle;
+        }
+    }
+
+    .active {
+        background-color: #e2e2e2;
+        border: solid 1px #ababab;
+    }
+
+    label {
+        font-size: 20px;
+        color: #707070;
+    }
+
+}

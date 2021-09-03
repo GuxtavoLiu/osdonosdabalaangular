@@ -14,6 +14,7 @@ export class User extends Auditable {
     password?: string;
     accessToken?: string;
     link?: string;
+    roles?: string[];
 
 }
 

@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LoginComponent} from './login.component';
-import {LoginRoutingModule} from './login-routing.module';
 import {AppMaterialModule} from "../app-material/app-material.module";
+import {BoardAdminRoutingModule} from "./board-admin-routing.module";
+import {BoardAdminComponent} from "./board-admin.component";
 
 @NgModule({
     imports: [
@@ -11,12 +11,12 @@ import {AppMaterialModule} from "../app-material/app-material.module";
         AppMaterialModule,
         ReactiveFormsModule,
         FormsModule,
-        LoginRoutingModule
+        BoardAdminRoutingModule
     ],
     declarations: [
-        LoginComponent,
+        BoardAdminComponent
     ],
     entryComponents: []
 })
-export class LoginModule {
+export class BoardAdminModule {
 }

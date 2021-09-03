@@ -13,5 +13,12 @@ export abstract class Constants {
     static readonly invalidCNPJError = `CNPJ inválido`;
     static readonly invalidCPFError = `CPF inválido`;
     static readonly invalidDataError = `Data inválida`;
+    static readonly listError = `Error ao listar os registros!`;
+    static readonly listComboError = `Error ao listar os registros para o combo!`;
+
+    static readonly ROLE_ADMIN = "ROLE_ADMIN";
+    static readonly ROLE_USER = "ROLE_USER";
+    static readonly ROLE_MODERATOR = "ROLE_MODERATOR";
+
 
 }
