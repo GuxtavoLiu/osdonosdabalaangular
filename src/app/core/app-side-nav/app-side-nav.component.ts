@@ -12,8 +12,13 @@ import {TokenStorageService} from "../../_services/token-storage.service";
     styleUrls: ['./app-side-nav.component.scss']
 })
 export class AppSideNavComponent implements OnInit {
+    private roles: string[] = [];
     isLoggedIn$?: Observable<boolean> | undefined;
+    isLogged = false;
     user?: User;
+    showAdminBoard = false;
+    showModeratorBoard = false;
+    username?: string;
 
     isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
         .pipe(
@@ -35,11 +40,23 @@ export class AppSideNavComponent implements OnInit {
         this.isLoggedIn$?.subscribe(value => {
             if (value) {
                 this.user = this.tokenStorageService.getUser();
+                if (this.user != null) {
+                    this.isLogged = true;
+                    this.roles = this.user.roles!;
+                    this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+                    this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+
+                    this.username = this.user.username;
+                } else {
+                    this.isLogged = false;
+                }
 
                 setTimeout(() => {
                     this.user = this.tokenStorageService.getUser();
                     this.chRef.detectChanges();
                 }, 1000);
+            } else {
+                this.isLogged = false;
             }
         });
     }
@@ -57,5 +74,6 @@ export class AppSideNavComponent implements OnInit {
         if (drawer) {
             drawer.toggle();
         }
+        window.location.reload();
     }
 }

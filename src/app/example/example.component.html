@@ -76,7 +76,7 @@
 
                     <ng-container matColumnDef="autocompleteObjectExample">
                         <mat-header-cell *matHeaderCellDef>Autocomplete</mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.autocompleteObjectExample.descricao}}</mat-cell>
+                        <mat-cell *matCellDef="let element"> {{element.autocompleteObjectExample?.description}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="email">
                         <mat-header-cell *matHeaderCellDef>E-mail</mat-header-cell>

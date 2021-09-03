@@ -8,12 +8,24 @@
 
         <mat-nav-list>
 
-            <mat-list-item routerLink="" (click)="drawer.toggle()">
+            <mat-list-item routerLink="/home" (click)="drawer.toggle()">
                 <a mat-line>Home</a>
             </mat-list-item>
 
             <mat-list-item routerLink="/example" (click)="drawer.toggle()">
                 <a mat-line>Example</a>
+            </mat-list-item>
+
+            <mat-list-item routerLink="/admin" *ngIf="showAdminBoard" (click)="drawer.toggle()">
+                <a mat-line>Admin Board</a>
+            </mat-list-item>
+
+            <mat-list-item routerLink="/mod" *ngIf="showModeratorBoard" (click)="drawer.toggle()">
+                <a mat-line>Moderator Board</a>
+            </mat-list-item>
+
+            <mat-list-item routerLink="/user" *ngIf="isLogged" (click)="drawer.toggle()">
+                <a mat-line>User</a>
             </mat-list-item>
 
             <!--Botões do menu-->
@@ -89,7 +101,7 @@
                     </a>
                 </mat-list-item>
                 <mat-menu #menuUsuarioLogado="">
-                    <button mat-menu-item routerLink="usuario-conta">
+                    <button mat-menu-item [routerLink]="['/profile']">
                         <a mat-line>Minha Conta</a>
                     </button>
                     <button mat-menu-item (click)="onLogout()" *ngIf="isLoggedIn$ | async">

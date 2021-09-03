@@ -360,10 +360,10 @@ export class ExampleComponent extends BaseClass implements OnInit {
                 debounceTime(250),
                 distinctUntilChanged(),
                 tap(() => {
-                    let filtroAC = new AutocompleteFilter();
-                    filtroAC.descricao = this.inputAutocomplete!.nativeElement.value;
-                    if (filtroAC.descricao && filtroAC.descricao.length > 2) {
-                        this.observableAutocomplete = this.autoCompleteService.listExample(filtroAC);
+                    let filterAc = new AutocompleteFilter();
+                    filterAc.description = this.inputAutocomplete!.nativeElement.value;
+                    if (filterAc.description && filterAc.description.length > 2) {
+                        this.observableAutocomplete = this.autoCompleteService.listExample(filterAc);
                     } else {
                         this.observableAutocomplete = new Observable<AutocompleteObjectExample[]>();
                     }

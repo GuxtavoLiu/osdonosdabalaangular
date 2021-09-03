@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit {
         this.content = data;
       },
       err => {
-        this.content = JSON.parse(err.error).message;
+          console.error(err)
+        // this.content = JSON.parse(err.error).message;
       }
     );
   }
