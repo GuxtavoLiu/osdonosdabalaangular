@@ -21,7 +21,10 @@ const routes: Routes = [
     {path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
     {path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)},
     {path: 'user', loadChildren: () => import('./board-user/board-user.module').then(m => m.BoardUserModule)},
-    {path: 'mod', loadChildren: () => import('./board-moderator/board-moderator.module').then(m => m.BoardModeratorModule)},
+    {
+        path: 'mod',
+        loadChildren: () => import('./board-moderator/board-moderator.module').then(m => m.BoardModeratorModule)
+    },
     {path: 'admin', loadChildren: () => import('./board-admin/board-admin.module').then(m => m.BoardAdminModule)},
     {
         path: 'example',

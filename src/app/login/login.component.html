@@ -77,8 +77,8 @@
 </div>-->
 
 
-<div class="loading-indicator" *ngIf="loading">
-    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+<div *ngIf="loading" class="loading-indicator">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
 </div>
 
 <div id="telaLogin">
@@ -87,22 +87,22 @@
             <div class="login-title-box">
             </div>
             <div [hidden]="stateView != STATE_LOGIN">
-                <form autocomplete="off" class="example-form" [formGroup]="form" (ngSubmit)="login()">
+                <form (ngSubmit)="login()" [formGroup]="form" autocomplete="off" class="example-form">
                     <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>Login</mat-label>
-                        <input matInput type="text" id="login" formControlName="login" required>
-                        <mat-error class="error-message"
-                                   *ngIf="true">
+                        <input formControlName="login" id="login" matInput required type="text">
+                        <mat-error *ngIf="true"
+                                   class="error-message">
                             O login é obrigatório
                         </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>Senha</mat-label>
-                        <input matInput type="password" id="password" formControlName="password"
-                               required>
-                        <mat-error class="error-message"
-                                   *ngIf="true">
+                        <input formControlName="password" id="password" matInput required
+                               type="password">
+                        <mat-error *ngIf="true"
+                                   class="error-message">
                             A senha é obrigatória
                         </mat-error>
                     </mat-form-field>
@@ -114,39 +114,40 @@
                         </mat-error>
                     </ng-container>
 
-                    <button color="primary" mat-raised-button type="submit"
-                            class="full-width" style="margin:40px 0px 30px 0px;letter-spacing: 0.57px;">ENTRAR
+                    <button class="full-width" color="primary" mat-raised-button
+                            style="margin:40px 0px 30px 0px;letter-spacing: 0.57px;" type="submit">ENTRAR
                         <i class="material-icons img-login-button">save_alt</i>
                     </button>
 
-                    <button type="button" mat-button (click)="changeState(STATE_REC_SENHA)" class="btn-recuperar-senha">
+                    <button (click)="changeState(STATE_REC_SENHA)" class="btn-recuperar-senha" mat-button type="button">
                         Recuperar senha
                     </button>
 
-                    <button  type="button" [routerLink]="['/register']" mat-button  class="full-width" >
+                    <button [routerLink]="['/register']" class="full-width" mat-button type="button">
                         Registrar
                     </button>
 
                 </form>
             </div>
             <div [hidden]="stateView != STATE_REC_SENHA">
-                <form autocomplete="off" class="example-form" [formGroup]="formRecovery!" (ngSubmit)="recovery()">
-                    <mat-form-field  class="full-width" appearance="outline" floatLabel="always">
-                        <input matInput type="text" placeholder="E-mail" id="loginRecuperarSenha" formControlName="email"
-                               required>
-                        <mat-error class="error-message"
-                                   *ngIf="true">
+                <form (ngSubmit)="recovery()" [formGroup]="formRecovery!" autocomplete="off" class="example-form">
+                    <mat-form-field appearance="outline" class="full-width" floatLabel="always">
+                        <input formControlName="email" id="loginRecuperarSenha" matInput placeholder="E-mail"
+                               required
+                               type="text">
+                        <mat-error *ngIf="true"
+                                   class="error-message">
                             O E-mail é obrigatório
                         </mat-error>
                     </mat-form-field>
 
 
-                    <button color="primary" mat-raised-button type="submit"
-                            class="full-width" style="margin:40px 0px;letter-spacing: 0.57px;">Recuperar Senha
+                    <button class="full-width" color="primary" mat-raised-button
+                            style="margin:40px 0px;letter-spacing: 0.57px;" type="submit">Recuperar Senha
                         <i class="material-icons">lock</i>
                     </button>
 
-                    <button type="button" mat-button (click)="changeState(STATE_LOGIN)" class="state-button">
+                    <button (click)="changeState(STATE_LOGIN)" class="state-button" mat-button type="button">
                         Login
                     </button>
 

@@ -32,11 +32,6 @@ export class AppDateAdapter extends NativeDateAdapter {
         }
     }
 
-    private _to2digit(n: number) {
-        return ('00' + n).slice(-2);
-    }
-
-
     isValidDate(dateStr: string, currentFormat: string): boolean {
         let valid = false;
         if (dateStr.length === currentFormat.length) {
@@ -87,6 +82,10 @@ export class AppDateAdapter extends NativeDateAdapter {
             }
         }
         return valid;
+    }
+
+    private _to2digit(n: number) {
+        return ('00' + n).slice(-2);
     }
 }
 

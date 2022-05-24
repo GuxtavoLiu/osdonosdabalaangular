@@ -1,30 +1,30 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport
-                 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-                 [mode]="'over'"
-                 [opened]="false">
+    <mat-sidenav #drawer [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="'over'"
+                 [opened]="false"
+                 class="sidenav"
+                 fixedInViewport>
         <mat-toolbar>Menu</mat-toolbar>
 
 
         <mat-nav-list>
 
-            <mat-list-item routerLink="/home" (click)="drawer.toggle()">
+            <mat-list-item (click)="drawer.toggle()" routerLink="/home">
                 <a mat-line>Home</a>
             </mat-list-item>
 
-            <mat-list-item routerLink="/example" (click)="drawer.toggle()">
+            <mat-list-item (click)="drawer.toggle()" routerLink="/example">
                 <a mat-line>Example</a>
             </mat-list-item>
 
-            <mat-list-item routerLink="/admin" *ngIf="showAdminBoard" (click)="drawer.toggle()">
+            <mat-list-item (click)="drawer.toggle()" *ngIf="showAdminBoard" routerLink="/admin">
                 <a mat-line>Admin Board</a>
             </mat-list-item>
 
-            <mat-list-item routerLink="/mod" *ngIf="showModeratorBoard" (click)="drawer.toggle()">
+            <mat-list-item (click)="drawer.toggle()" *ngIf="showModeratorBoard" routerLink="/mod">
                 <a mat-line>Moderator Board</a>
             </mat-list-item>
 
-            <mat-list-item routerLink="/user" *ngIf="isLogged" (click)="drawer.toggle()">
+            <mat-list-item (click)="drawer.toggle()" *ngIf="isLogged" routerLink="/user">
                 <a mat-line>User</a>
             </mat-list-item>
 
@@ -40,23 +40,23 @@
             </mat-list-item>
 
             <mat-menu #cadastro="matMenu">
-                <button mat-menu-item [matMenuTriggerFor]="exemplo">Tela 1</button>
-                <button mat-menu-item [matMenuTriggerFor]="outro">Outro</button>
+                <button [matMenuTriggerFor]="exemplo" mat-menu-item>Tela 1</button>
+                <button [matMenuTriggerFor]="outro" mat-menu-item>Outro</button>
             </mat-menu>
 
 
             <!--Submenu-->
             <mat-menu #exemplo="matMenu">
-                <button mat-menu-item routerLink="/example" (click)="drawer.toggle()">
+                <button (click)="drawer.toggle()" mat-menu-item routerLink="/example">
                     <a mat-line>Exemplo</a>
                 </button>
             </mat-menu>
 
             <mat-menu #outro="matMenu">
-                <button mat-menu-item routerLink="outro" (click)="drawer.toggle()">
+                <button (click)="drawer.toggle()" mat-menu-item routerLink="outro">
                     <a mat-line>Item 1</a>
                 </button>
-                <button mat-menu-item routerLink="outro" (click)="drawer.toggle()">
+                <button (click)="drawer.toggle()" mat-menu-item routerLink="outro">
                     <a mat-line>Item 2</a>
                 </button>
             </mat-menu>
@@ -64,15 +64,15 @@
 
             <mat-menu #outro="matMenu">
 
-                <button mat-menu-item routerLink="usuario" (click)="drawer.toggle()">
+                <button (click)="drawer.toggle()" mat-menu-item routerLink="usuario">
                     <a mat-line>Item 1</a>
                 </button>
 
-                <button mat-menu-item routerLink="usuario" (click)="drawer.toggle()">
+                <button (click)="drawer.toggle()" mat-menu-item routerLink="usuario">
                     <a mat-line>Item 2</a>
                 </button>
 
-                <button mat-menu-item routerLink="usuario" (click)="drawer.toggle()">
+                <button (click)="drawer.toggle()" mat-menu-item routerLink="usuario">
                     <a mat-line>Item 2</a>
                 </button>
             </mat-menu>
@@ -82,11 +82,11 @@
     <mat-sidenav-content>
         <mat-toolbar color="primary">
             <button
+                (click)="drawer.toggle()"
                 *ngIf="isLoggedIn$ | async"
-                type="button"
                 aria-label="Toggle sidenav"
                 mat-icon-button
-                (click)="drawer.toggle()">
+                type="button">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
             <span>NextAge Angular Starter</span>
@@ -94,17 +94,17 @@
 
             <div *ngIf="isLoggedIn$ | async" [hidden]="!user || user?.id == null">
                 <mat-list-item [matMenuTriggerFor]="menuUsuarioLogado">
-                    <a mat-line id="usuarioLogado">{{user?.name}}
-                        <div mat-card-avatar class="avatar-image">
+                    <a id="usuarioLogado" mat-line>{{user?.name}}
+                        <div class="avatar-image" mat-card-avatar>
                             <mat-icon aria-label="Side nav toggle icon">person</mat-icon>
                         </div>
                     </a>
                 </mat-list-item>
                 <mat-menu #menuUsuarioLogado="">
-                    <button mat-menu-item [routerLink]="['/profile']">
+                    <button [routerLink]="['/profile']" mat-menu-item>
                         <a mat-line>Minha Conta</a>
                     </button>
-                    <button mat-menu-item (click)="onLogout()" *ngIf="isLoggedIn$ | async">
+                    <button (click)="onLogout()" *ngIf="isLoggedIn$ | async" mat-menu-item>
                         <a mat-line>Sair</a>
                     </button>
                 </mat-menu>

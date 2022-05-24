@@ -14,7 +14,6 @@ import {ExampleService} from "./example.service";
 import {AuthService} from "../_services/auth.service";
 import {TokenStorageService} from "../_services/token-storage.service";
 import {ValidatorsCL} from "../_helpers/validatorsCL";
-import {ComboFilter} from "../filter/combo-filter";
 import {AutocompleteFilter} from "../filter/autocomplete-filter";
 import {AutocompleteObjectExample} from "./autocomplete-object-example";
 import {AutoCompleteService} from "../_helpers/autocomplete/autocomplete.service";
@@ -92,6 +91,14 @@ export class ExampleComponent extends BaseClass implements OnInit {
     }
 
     /**
+     * Disponibiliza o arquivo de constantes na ser utilizado na tela
+     * @return constants
+     */
+    get constants() {
+        return Constants;
+    }
+
+    /**
      * Está funcão é chamada ao terminar de carregar a tela
      */
     ngOnInit() {
@@ -101,6 +108,8 @@ export class ExampleComponent extends BaseClass implements OnInit {
 
     }
 
+
+    //*******************************************
 
     /**
      * funcao generica pra carregar todos combos necessários para os filtros a na manutenção
@@ -122,8 +131,6 @@ export class ExampleComponent extends BaseClass implements OnInit {
         });*/
     }
 
-
-    //*******************************************
     //STATE LISTA
     /**
      * Função utilizada para consultar os registros da lista na tela,
@@ -137,6 +144,8 @@ export class ExampleComponent extends BaseClass implements OnInit {
         this.listExample = [];
         this.listarPaginado(true);
     }
+
+    //*******************************************
 
     /**
      * Função utilizada para consultar os registros da lista na tela,
@@ -178,7 +187,6 @@ export class ExampleComponent extends BaseClass implements OnInit {
         });
     }
 
-    //*******************************************
     //STATE MANUT
     /**
      * @TODO Implementar lógica de acordo com a necessidade, o trecho abaixo serve como exemplo
@@ -253,14 +261,6 @@ export class ExampleComponent extends BaseClass implements OnInit {
      */
     getErrorMessage(field: string) {
         return super.getErrorMessage(field, this.form!);
-    }
-
-    /**
-     * Disponibiliza o arquivo de constantes na ser utilizado na tela
-     * @return constants
-     */
-    get constants() {
-        return Constants;
     }
 
     /**

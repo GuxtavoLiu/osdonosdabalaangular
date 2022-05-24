@@ -9,10 +9,8 @@ const USER_KEY = 'auth-user';
     providedIn: 'root'
 })
 export class TokenStorageService {
-    private loggedIn = new BehaviorSubject<boolean>(false);
-
     actualRoute?: ActivatedRouteSnapshot | undefined;
-
+    private loggedIn = new BehaviorSubject<boolean>(false);
 
     constructor() {
         if (this.userSignedIn()) {

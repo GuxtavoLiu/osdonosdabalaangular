@@ -59,9 +59,6 @@ export class LoginComponent extends BaseClass implements OnInit {
         this.setupForm();
     }
 
-    private setupForm() {
-    }
-
     login(): void {
         this.submitted = true;
         if (this.form?.valid) {
@@ -95,7 +92,6 @@ export class LoginComponent extends BaseClass implements OnInit {
         }
     }
 
-
     recovery() {
         if (this.formRecovery?.valid) {
             this.loading = true;
@@ -122,5 +118,8 @@ export class LoginComponent extends BaseClass implements OnInit {
 
     changeState(state: string) {
         this.stateView = state;
+    }
+
+    private setupForm() {
     }
 }

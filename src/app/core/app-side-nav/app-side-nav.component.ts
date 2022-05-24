@@ -12,18 +12,17 @@ import {TokenStorageService} from "../../_services/token-storage.service";
     styleUrls: ['./app-side-nav.component.scss']
 })
 export class AppSideNavComponent implements OnInit {
-    private roles: string[] = [];
     isLoggedIn$?: Observable<boolean> | undefined;
     isLogged = false;
     user?: User;
     showAdminBoard = false;
     showModeratorBoard = false;
     username?: string;
-
     isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
         .pipe(
             map(result => result.matches)
         );
+    private roles: string[] = [];
 
     constructor(private breakpointObserver: BreakpointObserver,
                 public tokenStorageService: TokenStorageService, private chRef: ChangeDetectorRef) {

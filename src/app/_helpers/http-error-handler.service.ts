@@ -14,11 +14,12 @@ export type HandleError =
 /** Handles HttpClient errors */
 @Injectable()
 export class HttpErrorHandler extends BaseClass {
+    showOff = false;
+
     constructor(private router: Router, private snackBar: MatSnackBar) {
         super();
     }
 
-    showOff = false;
     /** Create curried handleError function that already knows the service name */
     createHandleError = (serviceName = '') =>
         (operation = 'operation', result = {} as any) => this.handleError(serviceName, operation, result);

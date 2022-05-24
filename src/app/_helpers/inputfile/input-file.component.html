@@ -1,31 +1,31 @@
 <div class="file-container ">
     <div>
-        <input type="file"
+        <input #onFileInput
+               (change)="onChangeFileInput($event)"
+               [accept]="accept"
                [disabled]="disabled"
                [name]="idInput"
-               #onFileInput
-               (change)="onChangeFileInput($event)"
-               [accept]="accept" hidden>
+               hidden type="file">
 
-        <a mat-raised-button color="primary"
+        <a (click)="selecionarArquivo()" *ngIf="!existeArquivo()"
            [disabled]="disabled"
-           (click)="selecionarArquivo()"
-           *ngIf="!existeArquivo()">
+           color="primary"
+           mat-raised-button>
             Anexar Arquivo
         </a>
-        <a mat-raised-button color="secondary"
-           (click)="removerArquivo()"
+        <a (click)="removerArquivo()" *ngIf="existeArquivo()"
            [disabled]="disabled"
-           *ngIf="existeArquivo()">
+           color="secondary"
+           mat-raised-button>
             Remover Arquivo
         </a>
-        <a mat-raised-button color="primary" class="input-download"
-           (click)="download()"
-           *ngIf="exibirDownload && existeArquivo()">
+        <a (click)="download()" *ngIf="exibirDownload && existeArquivo()" class="input-download"
+           color="primary"
+           mat-raised-button>
             Download
         </a>
     </div>
-    <div class="img-input-file col-md-12" *ngIf="existeArquivoTipo('imagem') && exibirImagem" >
+    <div *ngIf="existeArquivoTipo('imagem') && exibirImagem" class="img-input-file col-md-12">
         <img [src]="objeto![nomePropriedadeArquivoB64!]"/>
     </div>
 </div>

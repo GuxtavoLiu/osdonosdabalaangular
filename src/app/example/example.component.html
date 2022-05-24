@@ -1,5 +1,5 @@
-<div class="loading-indicator" *ngIf="loading">
-    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+<div *ngIf="loading" class="loading-indicator">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
 </div>
 <div class="container">
     <!-- PAGINA LISTA -->
@@ -13,12 +13,12 @@
                     <div class="col-md-3">
                         <mat-form-field appearance="outline" floatLabel="always">
                             <mat-label>Id</mat-label>
-                            <input matInput maxlength="10" name="text"
-                                   #searchId autocomplete="off" only-number>
-                            <button mat-button matSuffix mat-icon-button aria-label="search">
+                            <input #searchId autocomplete="off" matInput
+                                   maxlength="10" name="text" only-number>
+                            <button aria-label="search" mat-button mat-icon-button matSuffix>
                                 <mat-icon *ngIf="!searchId.value">search</mat-icon>
-                                <mat-icon *ngIf="searchId.value"
-                                          (click)="searchId.value = '';this.filter.id = undefined; this.list()">close
+                                <mat-icon (click)="searchId.value = '';this.filter.id = undefined; this.list()"
+                                          *ngIf="searchId.value">close
                                 </mat-icon>
                             </button>
                         </mat-form-field>
@@ -26,20 +26,20 @@
                     <div class="col-md-3"></div>
                     <div class="col-md-3"></div>
                     <div class="group-button right col-md-3">
-                        <button type="button" mat-raised-button color="primary" (click)="limparFiltro()">
+                        <button (click)="limparFiltro()" color="primary" mat-raised-button type="button">
                             Limpar Filtro
                         </button>
 
-                        <button mat-icon-button aria-label="Ações" [matMenuTriggerFor]="menu">
+                        <button [matMenuTriggerFor]="menu" aria-label="Ações" mat-icon-button>
                             <mat-icon>more_vert</mat-icon>
                         </button>
                     </div>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="newRegistry()">
+                        <button (click)="newRegistry()" mat-menu-item>
                             <mat-icon>add</mat-icon>
                             <span>Novo</span>
                         </button>
-                        <button mat-menu-item (click)="list()">
+                        <button (click)="list()" mat-menu-item>
                             <mat-icon>refresh</mat-icon>
                             <span>Atualizar</span>
                         </button>
@@ -55,8 +55,8 @@
 
                 <mat-table #table [dataSource]="listExample">
                     <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: columns;let element"
-                             (click)="edit(element)"></mat-row>
+                    <mat-row (click)="edit(element)"
+                             *matRowDef="let row; columns: columns;let element"></mat-row>
 
                     <ng-container matColumnDef="id">
                         <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
@@ -86,7 +86,7 @@
                     <ng-container matColumnDef="operacoes">
                         <mat-header-cell *matHeaderCellDef></mat-header-cell>
                         <mat-cell *matCellDef="let element">
-                            <button mat-button color="primary">
+                            <button color="primary" mat-button>
                                 <mat-icon>keyboard_arrow_right</mat-icon>
                             </button>
                         </mat-cell>
@@ -97,7 +97,7 @@
                     Nenhum registro encontrado!
                 </div>
 
-                <pagination [pagination]="filter.pagination!"  (listar)="listarPaginado()"></pagination>
+                <pagination (listar)="listarPaginado()" [pagination]="filter.pagination!"></pagination>
 
             </mat-card-content>
         </mat-card>
@@ -109,7 +109,7 @@
             <mat-card-content>
                 <div class="row">
                     <div class="group-button col-md-1">
-                        <button mat-button (click)="voltarLista()" class="back-button">
+                        <button (click)="voltarLista()" class="back-button" mat-button>
                             <i class="material-icons img-logout-button">arrow_back</i>
                         </button>
                     </div>
@@ -120,44 +120,44 @@
             </mat-card-content>
         </mat-card>
 
-        <form autocomplete="off" [formGroup]="form" #documentEditForm="ngForm" id="ngForm" (submit)="save()">
+        <form #documentEditForm="ngForm" (submit)="save()" [formGroup]="form" autocomplete="off" id="ngForm">
             <mat-card>
                 <mat-card-content class="form-container row">
 
-                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-3">
+                    <mat-form-field appearance="outline" class="col-md-3" floatLabel="always">
                         <mat-label>Text Input</mat-label>
-                        <input matInput #text maxlength="200"
-                               formControlName="text"
+                        <input #text formControlName="text" matInput
+                               maxlength="200"
                                name="text" required>
                         <mat-error>{{getErrorMessage('text')}}</mat-error>
                     </mat-form-field>
 
 
-                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-3">
+                    <mat-form-field appearance="outline" class="col-md-3" floatLabel="always">
                         <mat-label>CNPJ</mat-label>
-                        <input matInput maxlength="18"
+                        <input #cnpj [dropSpecialCharacters]="false"
+                               formControlName="cnpj"
                                mask="00.000.000/0000-00"
-                               [dropSpecialCharacters]="false"
-                               formControlName="cnpj" #cnpj
+                               matInput maxlength="18"
                                name="cnpj" required>
                         <mat-error>{{getErrorMessage('cnpj')}}</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-3">
+                    <mat-form-field appearance="outline" class="col-md-3" floatLabel="always">
                         <mat-label>Data Input</mat-label>
-                        <input matInput [matDatepicker]="picker"
-                               formControlName="date">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <input [matDatepicker]="picker" formControlName="date"
+                               matInput>
+                        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error>{{getErrorMessage('date')}}</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-3">
+                    <mat-form-field appearance="outline" class="col-md-3" floatLabel="always">
                         <mat-label>Combobox Input</mat-label>
                         <mat-select [compareWith]="comparar"
-                                    required
+                                    aria-label="Combobox"
                                     formControlName="combobox"
-                                    aria-label="Combobox">
+                                    required>
                             <mat-option *ngFor="let obj of comboList" [value]="obj">
                                 {{obj}}
                             </mat-option>
@@ -166,19 +166,19 @@
                     </mat-form-field>
 
 
-                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-6">
+                    <mat-form-field appearance="outline" class="col-md-6" floatLabel="always">
                         <mat-label>E-mail Input</mat-label>
-                        <input matInput #input maxlength="200"
-                               formControlName="email" #email
+                        <input #email #input formControlName="email"
+                               matInput maxlength="200"
                                name="email">
                         <mat-error>{{getErrorMessage('email')}}</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" floatLabel="always" class="col-md-6">
+                    <mat-form-field appearance="outline" class="col-md-6" floatLabel="always">
                         <mat-label>Autocomplete Input</mat-label>
-                        <input aria-label="Autocomplete" matInput [autocompleteType]="'object'"
-                               formControlName="autocomplete" #inputAutocomplete
-                               [matAutocomplete]="autoCompleteManut">
+                        <input #inputAutocomplete [autocompleteType]="'object'" [matAutocomplete]="autoCompleteManut"
+                               aria-label="Autocomplete" formControlName="autocomplete"
+                               matInput>
                         <mat-autocomplete #autoCompleteManut [displayWith]="formataAutoComplete">
                             <mat-option *ngFor="let item of observableAutocomplete | async" [value]="item">
                                 <div>{{item.description}}</div>
@@ -190,9 +190,9 @@
                     <div class="form-container col-md-12">
                         <div class="row">
                             <label class="col-md-2" id="informa-emulamentos-label">Radiobutton</label>
-                            <mat-radio-group class="col-md-10" formControlName="radiobutton"
-                                             aria-labelledby="registro-avaliacao-label"
-                                             aria-label="Radiobutton">
+                            <mat-radio-group aria-label="Radiobutton" aria-labelledby="registro-avaliacao-label"
+                                             class="col-md-10"
+                                             formControlName="radiobutton">
                                 <mat-radio-button value="1">Sim</mat-radio-button>
                                 <mat-radio-button value="0">Não</mat-radio-button>
                             </mat-radio-group>
@@ -204,9 +204,9 @@
                         <div class="row">
                             <label class="col-md-12">Imagem Input</label>
 
-                            <input-file [objeto]="selected"
-                                       [accept]="'.jpg, .png, .jpeg|images/*;'"
-                                       [nomePropriedadeArquivoB64]="'imagemB64'">
+                            <input-file [accept]="'.jpg, .png, .jpeg|images/*;'"
+                                        [nomePropriedadeArquivoB64]="'imagemB64'"
+                                        [objeto]="selected">
                             </input-file>
                         </div>
                     </div>
@@ -219,14 +219,14 @@
                 <mat-card-content>
                     <div class="row">
                         <div class="group-button col-md-12">
-                            <button type="button" mat-raised-button color="primary" (click)="voltarLista()">
+                            <button (click)="voltarLista()" color="primary" mat-raised-button type="button">
                                 Voltar
                             </button>
-                            <button type="submit" mat-raised-button color="primary">
+                            <button color="primary" mat-raised-button type="submit">
                                 Salvar
                             </button>
-                            <button type="button" mat-raised-button color="secondary" (click)="newRegistry()"
-                                    *ngIf="selected.id">
+                            <button (click)="newRegistry()" *ngIf="selected.id" color="secondary" mat-raised-button
+                                    type="button">
                                 Novo
                             </button>
                         </div>
