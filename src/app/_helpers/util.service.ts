@@ -17,29 +17,29 @@ export class UtilService {
      * @param {type} nome nome do arquivo
      * @param {type} tipo tipo do arquivo
      */
-    download(obj: any, nome: string, tipo?: string): void {
-        if (obj) {
-            if (obj.arquivo && obj.nmAnexo) {
-                nome = obj.nmAnexo;
-                obj = obj.arquivo;
-            }
-            if (!tipo && nome.indexOf(".") > -1) {
-                const tipoArr = nome.split(".");
-                tipo = nome.split(".")[tipoArr.length - 1];
-            }
-
-            const blobObject = this.b64toBlob(obj, tipo, null);
-
-            if (window.navigator.msSaveOrOpenBlob !== undefined) {
-                window.navigator.msSaveOrOpenBlob(blobObject, nome);
-            } else if (window.navigator.msSaveBlob !== undefined) {
-                window.navigator.msSaveBlob(blobObject, nome);
-            } else {
-                //saveAs(blobObject, nome);
-                FileSaver.saveAs(blobObject, nome);
-            }
-        }
-    }
+    // download(obj: any, nome: string, tipo?: string): void {
+    //     if (obj) {
+    //         if (obj.arquivo && obj.nmAnexo) {
+    //             nome = obj.nmAnexo;
+    //             obj = obj.arquivo;
+    //         }
+    //         if (!tipo && nome.indexOf(".") > -1) {
+    //             const tipoArr = nome.split(".");
+    //             tipo = nome.split(".")[tipoArr.length - 1];
+    //         }
+    //
+    //         const blobObject = this.b64toBlob(obj, tipo, null);
+    //
+    //         if (window.navigator.msSaveOrOpenBlob !== undefined) {
+    //             window.navigator.msSaveOrOpenBlob(blobObject, nome);
+    //         } else if (window.navigator.msSaveBlob !== undefined) {
+    //             window.navigator.msSaveBlob(blobObject, nome);
+    //         } else {
+    //             //saveAs(blobObject, nome);
+    //             FileSaver.saveAs(blobObject, nome);
+    //         }
+    //     }
+    // }
 
     base64ToArrayBuffer(base64: string) {
         let binaryString = window.atob(base64);

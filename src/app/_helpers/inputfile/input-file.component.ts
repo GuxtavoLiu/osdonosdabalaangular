@@ -61,16 +61,16 @@ export class InputFileComponent implements OnInit {
         this._changeArquivoRemovido.emit();
     }
 
-    download() {
-        if (this.exibirDownload && this.existeArquivo()) {
-            let nomeArquivo = this.objeto[this.nomePropriedadeNomeArquivo!] as string;
-            const base64 = this.objeto[this.nomePropriedadeArquivoB64!] as string;
-            if (this.tipoPropriedadeArquivoB64 && this.objeto[this.tipoPropriedadeArquivoB64] && nomeArquivo.indexOf('.') < 0) {
-                nomeArquivo += '.' + this.objeto[this.tipoPropriedadeArquivoB64];
-            }
-            this.utilService.download(base64, nomeArquivo, this.objeto[this.tipoPropriedadeArquivoB64!]);
-        }
-    }
+    // download() {
+    //     if (this.exibirDownload && this.existeArquivo()) {
+    //         let nomeArquivo = this.objeto[this.nomePropriedadeNomeArquivo!] as string;
+    //         const base64 = this.objeto[this.nomePropriedadeArquivoB64!] as string;
+    //         if (this.tipoPropriedadeArquivoB64 && this.objeto[this.tipoPropriedadeArquivoB64] && nomeArquivo.indexOf('.') < 0) {
+    //             nomeArquivo += '.' + this.objeto[this.tipoPropriedadeArquivoB64];
+    //         }
+    //         this.utilService.download(base64, nomeArquivo, this.objeto[this.tipoPropriedadeArquivoB64!]);
+    //     }
+    // }
 
     removerArquivo() {
         if (this.disabled) {

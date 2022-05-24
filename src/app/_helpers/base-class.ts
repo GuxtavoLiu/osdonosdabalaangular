@@ -152,7 +152,7 @@ export class BaseClass implements OnInit {
         }
     }
 
-    isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator['standalone']);
+    // isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator['standalone']);
 
     // Detecta se o dispositivo está no iOS
     isIos = () => {
@@ -160,9 +160,9 @@ export class BaseClass implements OnInit {
         return /iphone|ipad|ipod/.test(userAgent);
     };
 
-    checkDownload() {
-        return !(this.isIos() && this.isInStandaloneMode());
-    }
+    // checkDownload() {
+    //     return !(this.isIos() && this.isInStandaloneMode());
+    // }
 
     checkOnline() {
         this.online$ = merge(

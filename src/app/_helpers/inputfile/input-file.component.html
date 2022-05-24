@@ -19,7 +19,7 @@
            mat-raised-button>
             Remover Arquivo
         </a>
-        <a (click)="download()" *ngIf="exibirDownload && existeArquivo()" class="input-download"
+        <a *ngIf="exibirDownload && existeArquivo()" class="input-download"
            color="primary"
            mat-raised-button>
             Download
